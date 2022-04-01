@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import 'react-loading-skeleton/dist/skeleton.css';
+
 const root = document.getElementById('root') as HTMLElement;
 createRoot(root).render(<App />);
 
