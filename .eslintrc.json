@@ -20,6 +20,8 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "no-param-reassign": "off",
+        "no-underscore-dangle": "off",
         "import/extensions": "off",
         "import/no-unresolved": "off",
         "react/require-default-props": "off",
