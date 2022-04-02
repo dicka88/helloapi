@@ -3,7 +3,9 @@ import {
   Button, Input, Modal, Spacer, Text, Textarea,
 } from '@nextui-org/react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
+
 import { createProject, CreateProjectProps, GetAllProjectResponse } from '../../services/project.service';
 import { queryClient } from '../../App';
 
@@ -12,7 +14,8 @@ type Props = {
   onClose: () => void;
 }
 
-const ModalCreateProject = ({ open, onClose }: Props) => {
+const ModalCreateProject: React.FC<Props> = ({ open, onClose }) => {
+  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [submitLoading, setSubmitLoading] = useState(false);
 
@@ -28,6 +31,7 @@ const ModalCreateProject = ({ open, onClose }: Props) => {
         data: [...projects.data, data],
       });
       onClose();
+      navigate(`/projects/${data.prefixPath}`);
     },
     // onError(err, userUpdates, context:) {
     //   queryClient.setQueryData(['projects', context.userUpdates.id], context.previousUser);

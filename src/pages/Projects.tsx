@@ -13,6 +13,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import ModalCreateProject from '../components/ModalCreateProject/ModalCreateProject';
 import Navbar from '../components/Navbar/Navbar';
 import { getAllProject, ProjectTypes } from '../services/project.service';
+import AvatarShortName from '../components/AvatarShortName/AvatarShortName';
 
 const Project: React.FC = () => {
   const {
@@ -71,11 +72,16 @@ const Project: React.FC = () => {
               <Card shadow={false} bordered css={{ '&:hover': { boxShadow: '$md' } }}>
                 <Row>
                   <div style={{ marginRight: '1em' }}>
-                    <Avatar
-                      src="https://www.freepnglogos.com/uploads/logo-tokopedia-png/logo-tokopedia-15.png"
-                      size="md"
-                      css={{ mr: 8, cursor: 'pointer' }}
-                    />
+                    {project.avatarUrl && (
+                      <Avatar
+                        src={project.avatarUrl}
+                        size="md"
+                        css={{ mr: 8, cursor: 'pointer' }}
+                      />
+                    )}
+                    {!project.avatarUrl && (
+                      <AvatarShortName name={project.projectName} />
+                    )}
                   </div>
                   <div>
                     <Text h4>

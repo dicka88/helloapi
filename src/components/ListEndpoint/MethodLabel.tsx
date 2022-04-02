@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE'
 }
 
 const methodData = {
