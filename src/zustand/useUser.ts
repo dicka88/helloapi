@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode';
 export type User = {
   id?: string | null
   email?: string | null
+  emailVerifiedAt: string | null
   name?: string | null
   avatarUrl?: string | null
   exp?: number | null
@@ -13,6 +14,7 @@ export type User = {
 let initialUser: User = {
   id: null,
   email: null,
+  emailVerifiedAt: null,
   name: null,
   avatarUrl: null,
   exp: null,
