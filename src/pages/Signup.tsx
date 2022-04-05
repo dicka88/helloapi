@@ -8,6 +8,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { BsGithub } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 
 import Seo from '../components/Seo/Seo';
 import { signup, SignupType } from '../services/auth.service';
@@ -21,11 +22,16 @@ const Signup: React.FC = () => {
   const password = watch('password', '');
 
   const onSubmit: SubmitHandler<FieldValues> = async (data): Promise<void> => {
-    setIsLoading(true);
-    const { token } = await signup(data as SignupType);
-    localStorage.setItem('token', token);
-    setIsLoading(false);
-    navigate('/');
+    try {
+      setIsLoading(true);
+      const { token } = await signup(data as SignupType);
+      localStorage.setItem('token', token);
+      navigate('/');
+    } catch (err: any) {
+      toast.error(err.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
