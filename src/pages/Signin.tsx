@@ -2,20 +2,35 @@ import React from 'react';
 import {
   Avatar,
   Button,
-  Card, Container, Divider, Input, Row, Spacer, Text,
+  Card, Container, Divider, Input, Loading, Row, Spacer, Text,
 } from '@nextui-org/react';
 import { FcGoogle } from 'react-icons/fc';
 import { BsGithub } from 'react-icons/bs';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import jwtDecode from 'jwt-decode';
 
 import Seo from '../components/Seo/Seo';
 import { signin, SigninType } from '../services/auth.service';
+import useUser from '../zustand/useUser';
+
+type LocationProps = {
+  state: {
+    message: string,
+    from: {
+      pathname: string
+    }
+  }
+}
 
 const Signin: React.FC = () => {
   const navigate = useNavigate();
+  const { state } = useLocation() as LocationProps;
+  const { setUser } = useUser();
+
   const {
-    register, handleSubmit, formState: { errors },
+    register, handleSubmit, formState: { errors, isSubmitting },
   } = useForm();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data): Promise<void> => {
@@ -23,9 +38,14 @@ const Signin: React.FC = () => {
       const { token } = await signin(data as SigninType);
       localStorage.setItem('token', token);
 
-      navigate('/projects');
+      // parse token
+      const userDecode = jwtDecode(token);
+
+      setUser(userDecode);
+
+      navigate(state?.from?.pathname || '/projects');
     } catch (err) {
-      window.alert('Login failed');
+      toast.error('Login failed, email or password is wrong');
     }
   };
 
@@ -45,6 +65,14 @@ const Signin: React.FC = () => {
           <Spacer y={2} />
           <Text h3>Sign In</Text>
           <Spacer y={2} />
+          {state?.message && (
+            <>
+              <Card color="warning">
+                {state.message}
+              </Card>
+              <Spacer y={2} />
+            </>
+          )}
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input type="email" css={{ width: 'stretch' }} labelPlaceholder="Email" {...register('email', { required: true })} />
             {errors.email?.type === 'required' && <Text css={{ color: '$red400' }}>Email is required</Text>}
@@ -56,8 +84,10 @@ const Signin: React.FC = () => {
 
             <Spacer y={2} />
 
-            <Button type="submit" css={{ width: 'stretch', mb: '1em' }}>
-              Sign In
+            <Button type="submit" css={{ width: 'stretch', mb: '1em' }} disabled={isSubmitting}>
+              {isSubmitting
+                ? <Loading type="points" color="white" />
+                : 'Sign In'}
             </Button>
             <Text>
               Didn't have an account ?
