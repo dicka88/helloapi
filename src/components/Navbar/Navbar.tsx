@@ -1,30 +1,52 @@
-import {
-  Avatar, Card, Row, Text, Tooltip,
-} from '@nextui-org/react';
 import React from 'react';
+import {
+  Avatar, Button, Card, Row, Text, Tooltip,
+} from '@nextui-org/react';
+import { AiFillMail } from 'react-icons/ai';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const Navbar = () => (
-  <nav>
-    <Row justify="center" align="center">
-      <Text>
-        NEXT API
-      </Text>
-      <Card color="primary" css={{ my: '$12', mr: 16 }}>
-        <Text h6 size={15} color="white" css={{ m: 0 }}>
-          NextUI gives you the best developer experience with all the features
-          you need for building beautiful and modern websites and
-          applications.
-        </Text>
+import ProfileDropdown from './ProfileDropdown';
+import useUser from '../../zustand/useUser';
+
+const Nav = styled.nav`
+  padding: 1em 0;
+`;
+
+const Navbar = () => {
+  const { user } = useUser();
+
+  return (
+    <Nav>
+      {!user?.emailVerifiedAt && (
+      <Card color="warning" css={{ mt: '$6', mb: '$8' }}>
+        <Row justify="space-between" align="center">
+          <Text h6 size={15} color="white" css={{ m: 0 }}>
+            <AiFillMail size={15} style={{ marginRight: '1em' }} />
+            Your email is not verified
+          </Text>
+          <Button auto light css={{ color: 'white' }}>
+            Verify now
+          </Button>
+        </Row>
       </Card>
-      <Tooltip placement="bottom" content="Dark Mode">
-        <Avatar
-          src="https://www.freepnglogos.com/uploads/logo-tokopedia-png/logo-tokopedia-15.png"
-          size="md"
-          css={{ cursor: 'pointer' }}
-        />
-      </Tooltip>
-    </Row>
-  </nav>
-);
+      )}
+      <Row justify="space-between" align="center">
+        <Link to="/projects">
+          <Text h3>
+            Hello API
+          </Text>
+        </Link>
+        <Tooltip trigger="click" placement="bottomEnd" content={<ProfileDropdown />}>
+          <Avatar
+            src="https://www.freepnglogos.com/uploads/logo-tokopedia-png/logo-tokopedia-15.png"
+            size="md"
+            css={{ cursor: 'pointer' }}
+          />
+        </Tooltip>
+      </Row>
+    </Nav>
+  );
+};
 
 export default Navbar;
