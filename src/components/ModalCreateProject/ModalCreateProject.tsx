@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Button, Input, Modal, Spacer, Text, Textarea,
 } from '@nextui-org/react';
@@ -16,16 +16,11 @@ type Props = {
 
 const ModalCreateProject: React.FC<Props> = ({ open, onClose }) => {
   const navigate = useNavigate();
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const [submitLoading, setSubmitLoading] = useState(false);
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
 
   const mutator = useMutation(createProject, {
-    async onMutate() {
-      setSubmitLoading(true);
-    },
     onSuccess(data) {
       const projects = queryClient.getQueryData('projects') as GetAllProjectResponse;
-      setSubmitLoading(false);
       queryClient.setQueryData('projects', {
         ...projects,
         data: [...projects.data, data],
@@ -33,9 +28,6 @@ const ModalCreateProject: React.FC<Props> = ({ open, onClose }) => {
       onClose();
       navigate(`/projects/${data.prefixPath}`);
     },
-    // onError(err, userUpdates, context:) {
-    //   queryClient.setQueryData(['projects', context.userUpdates.id], context.previousUser);
-    // },
     onSettled: () => {
       queryClient.invalidateQueries('projects');
     },
@@ -73,8 +65,8 @@ const ModalCreateProject: React.FC<Props> = ({ open, onClose }) => {
             placeholder="Project Description (optional)"
           />
           <Spacer y={1} />
-          <Button type="submit" css={{ width: '100%' }} disabled={submitLoading}>
-            {submitLoading ? 'Creating...' : 'Create'}
+          <Button type="submit" css={{ width: '100%' }} disabled={isSubmitting}>
+            {isSubmitting ? 'Creating...' : 'Create'}
           </Button>
         </form>
         <Spacer y={1} />
