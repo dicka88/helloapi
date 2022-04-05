@@ -69,8 +69,8 @@ const Project: React.FC = () => {
         {data?.data.map((project: ProjectTypes) => (
           <Grid key={project._id} xs={6} sm={4} md={4} lg={3}>
             <Link to={`/projects/${project.prefixPath}`} style={{ width: '100%' }}>
-              <Card shadow={false} bordered css={{ '&:hover': { boxShadow: '$md' } }}>
-                <Row>
+              <Card shadow={false} bordered css={{ height: '100%', '&:hover': { boxShadow: '$md' } }}>
+                <Row css={{ py: '$6' }}>
                   <div style={{ marginRight: '1em' }}>
                     {project.avatarUrl && (
                       <Avatar
