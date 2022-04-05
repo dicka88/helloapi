@@ -8,8 +8,8 @@ type Props = {
 const methodData = {
   GET: {
     shortName: 'GET',
-    color: '#00C507',
-    bg: '#AAFFAD',
+    color: '#09960e',
+    bg: '#e4ffe5',
   },
   POST: {
     shortName: 'POST',
@@ -38,6 +38,7 @@ const MethodLabel: React.FC<Props> = ({ method }) => {
   background-color: ${methodData[method].bg};
   color: ${methodData[method].color};
   margin-right: 1em;
+  font-size: 0.8rem;
   height: 100%;
 `;
 
