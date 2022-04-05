@@ -7,7 +7,9 @@ export type SigninType = {
 }
 
 type AuthResponse = {
-  token: string;
+  statusCode?: number,
+  message?: string,
+  token: string,
 }
 
 export const signin = async (credential: SigninType): Promise<AuthResponse> => {
