@@ -16,7 +16,6 @@ import Signin from './pages/Signin';
 import Settings from './pages/Settings';
 import Invoices from './pages/Invoices';
 import EndpointDetail from './components/EndpointDetail/EndpointDetail';
-import EndpointCreate from './components/EndpointCreate/EndpointCreate';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 export const queryClient = new QueryClient();
@@ -57,7 +56,6 @@ const App: React.FC = () => {
             )}
             >
               <Route path=":path" element={<EndpointDetail />} />
-              <Route path="create" element={<EndpointCreate />} />
               <Route path="*" element={<span>Not found</span>} />
             </Route>
             <Route
