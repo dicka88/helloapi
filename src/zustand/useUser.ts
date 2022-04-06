@@ -35,7 +35,7 @@ interface UserState {
 const useUser = create<UserState>((set) => ({
   user: initialUser,
   setUser: (user: User) => set((state) => ({ user: { ...state.user, ...user } })),
-  flush: () => set({ user: initialUser }),
+  flush: () => set(() => ({ user: initialUser })),
 }));
 
 export default useUser;
