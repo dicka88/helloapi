@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
               Usage
             </Button>
             <Tooltip trigger="click" placement="bottomEnd" content={<ProfileDropdown />}>
-              <AvatarShortName name={user?.name!} />
+              <AvatarShortName name={user?.name!} color="#000000" />
             </Tooltip>
           </Row>
         </div>

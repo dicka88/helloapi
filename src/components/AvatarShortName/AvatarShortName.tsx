@@ -3,9 +3,12 @@ import styled from 'styled-components';
 
 type Props = {
   name: string;
+  color?: string;
 }
 
-const Avatar = styled.div`
+const Avatar = styled.div<{
+  backgroundColor: string
+}>`
   border-radius: 50%;
   padding: 0.5rem;
   display: flex;
@@ -13,13 +16,13 @@ const Avatar = styled.div`
   align-items:center;
   width: 42px;
   height: 42px;
-  background-color: #0070f3;
+  background-color: ${(props: any) => props.backgroundColor} ;
   color: white;
   cursor: pointer;
   user-select: none;
 `;
 
-const AvatarShortName:React.FC<Props> = ({ name }) => {
+const AvatarShortName:React.FC<Props> = ({ name, color = '#0070f3' }) => {
   const shortName = name.split(' ')
     .map((word) => word[0])
     .join('')
@@ -27,7 +30,7 @@ const AvatarShortName:React.FC<Props> = ({ name }) => {
     .toUpperCase();
 
   return (
-    <Avatar>
+    <Avatar backgroundColor={color}>
       {shortName}
     </Avatar>
   );
