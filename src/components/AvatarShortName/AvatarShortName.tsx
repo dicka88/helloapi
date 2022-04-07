@@ -15,6 +15,8 @@ const Avatar = styled.div`
   height: 42px;
   background-color: #0070f3;
   color: white;
+  cursor: pointer;
+  user-select: none;
 `;
 
 const AvatarShortName:React.FC<Props> = ({ name }) => {
