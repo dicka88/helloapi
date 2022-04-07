@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import {
-  Avatar,
   Button,
-  Card, Container, Divider, Input, Loading, Row, Spacer, Text,
+  Card, Container, Divider, Image, Input, Loading, Row, Spacer, Text,
 } from '@nextui-org/react';
 import { FcGoogle } from 'react-icons/fc';
 import { BsGithub } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import jwtDecode from 'jwt-decode';
 
 import Seo from '../components/Seo/Seo';
 import { signup, SignupType } from '../services/auth.service';
+import useUser from '../zustand/useUser';
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();
+  const { setUser } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const {
     register, handleSubmit, watch, formState: { errors },
@@ -26,6 +28,11 @@ const Signup: React.FC = () => {
       setIsLoading(true);
       const { token } = await signup(data as SignupType);
       localStorage.setItem('token', token);
+      // parse token
+      const userDecode = jwtDecode(token);
+
+      setUser(userDecode);
+
       navigate('/');
     } catch (err: any) {
       toast.error(err.response.data.message);
@@ -42,10 +49,11 @@ const Signup: React.FC = () => {
       <Row justify="center" css={{ alignItems: 'center', minHeight: '100vh' }}>
         <Card css={{ maxWidth: '450px', px: '$8', py: '$16' }}>
           <Row justify="center">
-            <Avatar
-              src="https://www.freepnglogos.com/uploads/logo-tokopedia-png/logo-tokopedia-15.png"
-              size="xl"
-            />
+            <Link to="/">
+              <Image
+                src="/logo/logohorizontal.svg"
+              />
+            </Link>
           </Row>
           <Spacer y={2} />
           <Text h3>Sign Up</Text>

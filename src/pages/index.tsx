@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  Avatar,
-  Button, Container, Grid, Row, Spacer, Text,
+  Avatar, Image,
+  Button, Container, Grid, Row, Spacer, Text, Collapse,
 } from '@nextui-org/react';
 import { Link } from 'react-router-dom';
 import AceEditor from 'react-ace';
@@ -19,13 +19,17 @@ const Index: React.FC = () => {
     <>
       <Container lg>
         <Seo
-          title="Hello API, Create your API without Coding"
+          title="Hello API | Create your API without Coding"
           description="Fake API Json with faker or just plain json"
         />
 
         <nav>
           <Row justify="space-between" css={{ py: '$16' }}>
-            <Text h3>Hello API</Text>
+            <Link to="/">
+              <Image
+                src="/logo/logohorizontal.svg"
+              />
+            </Link>
             <div>
               <Row>
                 {user?.id && (
@@ -153,6 +157,45 @@ const Index: React.FC = () => {
               </div>
             </Grid>
 
+          </Grid.Container>
+        </section>
+
+        <section>
+          <Grid.Container css={{ py: '$24' }}>
+            <Grid sm={12} md={6}>
+              <Image
+                src="/illustrations/miroodles-colorcamp4.png"
+                width={280}
+              />
+            </Grid>
+            <Grid sm={12} md={6}>
+              <Collapse.Group>
+                <Collapse title="Option A" expanded>
+                  <Text>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat.
+                  </Text>
+                </Collapse>
+                <Collapse title="Option B">
+                  <Text>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat.
+                  </Text>
+                </Collapse>
+                <Collapse title="Option C">
+                  <Text>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat.
+                  </Text>
+                </Collapse>
+              </Collapse.Group>
+            </Grid>
           </Grid.Container>
         </section>
 

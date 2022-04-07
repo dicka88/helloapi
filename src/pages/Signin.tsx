@@ -1,8 +1,7 @@
 import React from 'react';
 import {
-  Avatar,
   Button,
-  Card, Container, Divider, Input, Loading, Row, Spacer, Text,
+  Card, Container, Divider, Image, Input, Loading, Row, Spacer, Text,
 } from '@nextui-org/react';
 import { FcGoogle } from 'react-icons/fc';
 import { BsGithub } from 'react-icons/bs';
@@ -44,8 +43,8 @@ const Signin: React.FC = () => {
       setUser(userDecode);
 
       navigate(state?.from?.pathname || '/projects');
-    } catch (err) {
-      toast.error('Login failed, email or password is wrong');
+    } catch (err: any) {
+      toast.error(err.response.data.message);
     }
   };
 
@@ -57,10 +56,11 @@ const Signin: React.FC = () => {
       <Row justify="center" css={{ alignItems: 'center', minHeight: '100vh' }}>
         <Card css={{ maxWidth: '450px', px: '$8', py: '$16' }}>
           <Row justify="center">
-            <Avatar
-              src="https://www.freepnglogos.com/uploads/logo-tokopedia-png/logo-tokopedia-15.png"
-              size="xl"
-            />
+            <Link to="/">
+              <Image
+                src="/logo/logohorizontal.svg"
+              />
+            </Link>
           </Row>
           <Spacer y={2} />
           <Text h3>Sign In</Text>
