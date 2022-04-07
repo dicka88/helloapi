@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Avatar, Button, Card, Row, Text, Tooltip,
+  Button, Card, Image, Row, Text, Tooltip,
 } from '@nextui-org/react';
 import { AiFillMail } from 'react-icons/ai';
 import styled from 'styled-components';
@@ -8,12 +8,13 @@ import { Link } from 'react-router-dom';
 
 import ProfileDropdown from './ProfileDropdown';
 import useUser from '../../zustand/useUser';
+import AvatarShortName from '../AvatarShortName/AvatarShortName';
 
 const Nav = styled.nav`
   padding: 1em 0;
 `;
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const { user } = useUser();
 
   return (
@@ -33,17 +34,21 @@ const Navbar = () => {
       )}
       <Row justify="space-between" align="center">
         <Link to="/projects">
-          <Text h3>
-            Hello API
-          </Text>
-        </Link>
-        <Tooltip trigger="click" placement="bottomEnd" content={<ProfileDropdown />}>
-          <Avatar
-            src="https://www.freepnglogos.com/uploads/logo-tokopedia-png/logo-tokopedia-15.png"
-            size="md"
-            css={{ cursor: 'pointer' }}
+          <Image
+            src="/logo/logohorizontal.svg"
+            height={36}
           />
-        </Tooltip>
+        </Link>
+        <div>
+          <Row>
+            <Button auto light css={{ marginRight: '$8' }}>
+              Usage
+            </Button>
+            <Tooltip trigger="click" placement="bottomEnd" content={<ProfileDropdown />}>
+              <AvatarShortName name={user?.name!} />
+            </Tooltip>
+          </Row>
+        </div>
       </Row>
     </Nav>
   );
