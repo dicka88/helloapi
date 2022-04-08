@@ -22,6 +22,7 @@ const ListButton = styled.button`
   ${({ color }) => color && `color: ${color}`};
   transition: 0.1s ease-in;
   &:hover {
+    color: black;
     font-weight: bold;
   }
 `;
@@ -44,13 +45,13 @@ const ProfileDropdown: React.FC = () => {
       </div>
       <Divider css={{ my: '$6' }} />
       <Link to="/invoices">
-        <ListButton>
+        <ListButton color="#838383">
           <AiOutlineTransaction style={{ display: 'inline', marginRight: '1em' }} />
           Invoices
         </ListButton>
       </Link>
       <Link to="/settings">
-        <ListButton>
+        <ListButton color="#838383">
           <AiOutlineSetting style={{ display: 'inline', marginRight: '1em' }} />
           Settings
         </ListButton>

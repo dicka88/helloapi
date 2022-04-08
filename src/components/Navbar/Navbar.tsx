@@ -6,6 +6,7 @@ import { AiFillMail } from 'react-icons/ai';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { FcFlashOn } from 'react-icons/fc';
 import ProfileDropdown from './ProfileDropdown';
 import useUser from '../../zustand/useUser';
 import AvatarShortName from '../AvatarShortName/AvatarShortName';
@@ -41,7 +42,7 @@ const Navbar: React.FC = () => {
         </Link>
         <div>
           <Row>
-            <Button auto light css={{ marginRight: '$8' }}>
+            <Button auto ghost color="gradient" css={{ marginRight: '$8' }} iconRight={<FcFlashOn />}>
               Usage
             </Button>
             <Tooltip trigger="click" placement="bottomEnd" content={<ProfileDropdown />}>
