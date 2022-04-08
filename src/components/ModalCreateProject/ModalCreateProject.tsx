@@ -45,7 +45,7 @@ const ModalCreateProject: React.FC<Props> = ({ open, onClose }) => {
     >
       <Modal.Header>
         <Text b size={22}>
-          Create Project
+          Create New Project
         </Text>
       </Modal.Header>
       <Modal.Body>
