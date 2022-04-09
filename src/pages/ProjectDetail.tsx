@@ -19,6 +19,7 @@ import {
 import { useQuery } from 'react-query';
 import Skeleton from 'react-loading-skeleton';
 
+import { AiOutlinePlus } from 'react-icons/ai';
 import ListEndpoint from '../components/ListEndpoint';
 import Navbar from '../components/Navbar/Navbar';
 import { getProject } from '../services/project.service';
@@ -28,6 +29,7 @@ import ModalCreateEndpoint from '../components/ModalCreateEndpoint/ModalCreateEn
 import DropdownProjectSettings from '../components/DropdownProjectSettings/DropdownProjectSettings';
 import ModalApiKey from '../components/ModalApiKey/ModalApiKey';
 import DisconnectedInternetState from '../components/DisconnectedInternetState/DisconnectedInternetState';
+import Seo from '../components/Seo/Seo';
 
 const ProjectDetail: React.FC = () => {
   const { prefixPath } = useParams<{prefixPath: string}>();
@@ -53,6 +55,9 @@ const ProjectDetail: React.FC = () => {
 
   return (
     <Container lg>
+      <Seo
+        title={`${isLoading ? 'Loading ...' : project.projectName} - Hello API`}
+      />
       <Navbar />
 
       <Grid.Container>
@@ -113,6 +118,7 @@ const ProjectDetail: React.FC = () => {
                   ? <Skeleton height={38} width={75} />
                   : (
                     <Button auto css={{ display: 'inline', mr: 8 }} onClick={() => setModalCreateOpen(true)}>
+                      <AiOutlinePlus style={{ marginRight: '0.5rem' }} />
                       Create
                     </Button>
                   )}
@@ -177,7 +183,7 @@ const ProjectDetail: React.FC = () => {
             {!isLoading && !outlet && (
               <Row justify="center" align="center">
                 <div style={{ textAlign: 'center' }}>
-                  <img src="/miroodles-colorcamp.png" height="250px" alt="Illustration" />
+                  <img src="/illustrations/miroodles-colorcamp.png" height="250px" alt="Illustration" />
                   <Spacer y={2} />
                   <Text h4>
                     Everything is look good

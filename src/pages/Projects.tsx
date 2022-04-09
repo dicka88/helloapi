@@ -14,6 +14,8 @@ import ModalCreateProject from '../components/ModalCreateProject/ModalCreateProj
 import Navbar from '../components/Navbar/Navbar';
 import { getAllProject, ProjectTypes } from '../services/project.service';
 import AvatarShortName from '../components/AvatarShortName/AvatarShortName';
+import MenuTabs from '../components/MenuTabs/MenuTabs';
+import Seo from '../components/Seo/Seo';
 
 const Project: React.FC = () => {
   const {
@@ -24,31 +26,36 @@ const Project: React.FC = () => {
 
   return (
     <Container lg>
+      <Seo
+        title="Projects - Hello API"
+      />
       <Navbar />
 
-      <Row justify="space-between">
-        <Text h3>Projects</Text>
+      <MenuTabs />
+
+      <Row justify="flex-end" css={{ py: '$8' }}>
         {data?.data.length !== 0 && (
         <Button auto onClick={() => setCreateModalOpen(true)}>
           <AiOutlinePlus style={{ marginRight: '0.5rem' }} />
-          Create
+          New Project
         </Button>
         )}
       </Row>
-      {data?.data.length === 0 && (
-        <Row justify="center" css={{ py: '$32' }}>
+      <Grid.Container gap={1} css={{ my: '$4' }}>
+        {data?.data.length === 0 && (
+        <Grid justify="center" css={{ py: '$32' }}>
           <div>
             <Text h2>No projects found</Text>
             <Text>Create your first Project now</Text>
             <Spacer y={1} />
             <Button auto onClick={() => setCreateModalOpen(true)}>
               <AiOutlinePlus style={{ marginRight: '0.5rem' }} />
-              Create
+              New Project
             </Button>
           </div>
-        </Row>
-      )}
-      <Grid.Container gap={1} css={{ my: 16 }}>
+        </Grid>
+        )}
+
         { isLoading && (
           [1, 2, 3, 4, 5, 6].map((i:number) => (
             <Grid key={i} xs={6} sm={4} md={4} lg={3}>
@@ -73,14 +80,14 @@ const Project: React.FC = () => {
                 <Row css={{ py: '$6' }}>
                   <div style={{ marginRight: '1em' }}>
                     {project.avatarUrl && (
-                      <Avatar
-                        src={project.avatarUrl}
-                        size="md"
-                        css={{ mr: 8, cursor: 'pointer' }}
-                      />
+                    <Avatar
+                      src={project.avatarUrl}
+                      size="md"
+                      css={{ mr: 8, cursor: 'pointer' }}
+                    />
                     )}
                     {!project.avatarUrl && (
-                      <AvatarShortName name={project.projectName} />
+                    <AvatarShortName name={project.projectName} />
                     )}
                   </div>
                   <div>
