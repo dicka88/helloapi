@@ -13,8 +13,6 @@ import useUser from '../zustand/useUser';
 const Index: React.FC = () => {
   const { user } = useUser();
 
-  console.log(user);
-
   return (
     <>
       <Container lg>
@@ -34,7 +32,7 @@ const Index: React.FC = () => {
               <Row>
                 {user?.id && (
                   <>
-                    <Link to="/projects">
+                    <Link to="/documents">
                       <Button auto css={{ marginRight: '$4' }}>Go to App</Button>
                     </Link>
                     <Avatar
@@ -106,11 +104,11 @@ const Index: React.FC = () => {
                   <Row>
                     <Link to="/signin">
                       <Button auto css={{ marginRight: '$4' }}>
-                        Get Started
+                        Create JSON
                       </Button>
                     </Link>
                     <Button auto flat>
-                      Demo
+                      Get Started
                     </Button>
                   </Row>
                 </div>

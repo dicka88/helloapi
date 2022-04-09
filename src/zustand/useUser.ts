@@ -11,7 +11,7 @@ export type User = {
   iat?: number | null
 }
 
-let initialUser: User = {
+const mutableInitialUser: User = {
   id: null,
   email: null,
   emailVerifiedAt: null,
@@ -21,6 +21,8 @@ let initialUser: User = {
   iat: null,
 };
 
+let initialUser = { ...mutableInitialUser };
+
 const token = localStorage.getItem('token');
 if (token) {
   initialUser = jwtDecode(token) as User;
@@ -29,13 +31,16 @@ if (token) {
 interface UserState {
   user: User | null;
   setUser: Function;
+  /**
+   * Remove session
+   */
   flush: () => void;
 }
 
 const useUser = create<UserState>((set) => ({
   user: initialUser,
   setUser: (user: User) => set((state) => ({ user: { ...state.user, ...user } })),
-  flush: () => set(() => ({ user: initialUser })),
+  flush: () => set(() => ({ user: mutableInitialUser })),
 }));
 
 export default useUser;
