@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  Avatar, Image,
+  Image,
   Button, Container, Grid, Row, Spacer, Text, Collapse,
 } from '@nextui-org/react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AceEditor from 'react-ace';
 
 import Footer from '../components/Footer/Footer';
 import Seo from '../components/Seo/Seo';
-import useUser from '../zustand/useUser';
+import NavbarHomepage from '../components/NavbarHomepage/NavbarHomepage';
+import { createPublicDocument } from '../services/document.service';
 
 const Index: React.FC = () => {
-  const { user } = useUser();
+  const navigate = useNavigate();
+  const [content, setContent] = useState(JSON.stringify({ statusCode: 200, message: 'Hello API' }, null, '\t'));
+  const createApiHandler = async () => {
+    const data = {
+      title: 'Hello World',
+      content,
+    };
+
+    const document = await createPublicDocument(data);
+
+    navigate(`/document/${document._id}`);
+  };
 
   return (
     <>
@@ -21,40 +33,7 @@ const Index: React.FC = () => {
           description="Fake API Json with faker or just plain json"
         />
 
-        <nav>
-          <Row justify="space-between" css={{ py: '$16' }}>
-            <Link to="/">
-              <Image
-                src="/logo/logohorizontal.svg"
-              />
-            </Link>
-            <div>
-              <Row>
-                {user?.id && (
-                  <>
-                    <Link to="/documents">
-                      <Button auto css={{ marginRight: '$4' }}>Go to App</Button>
-                    </Link>
-                    <Avatar
-                      src={user?.avatarUrl || 'https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=20&m=1214428300&s=612x612&w=0&h=MOvSM2M1l_beQ4UzfSU2pfv4sRjm0zkpeBtIV-P71JE='}
-                      size="md"
-                    />
-                  </>
-                )}
-                {!user?.id && (
-                  <>
-                    <Link to="/signin">
-                      <Button auto css={{ marginRight: '$4' }}>Signin</Button>
-                    </Link>
-                    <Link to="/signup">
-                      <Button auto light>Signup</Button>
-                    </Link>
-                  </>
-                )}
-              </Row>
-            </div>
-          </Row>
-        </nav>
+        <NavbarHomepage />
 
         <section>
           <Grid.Container css={{ py: '$16', pb: '$24' }}>
@@ -89,7 +68,8 @@ const Index: React.FC = () => {
                       style={{
                         background: '#f4f4f4',
                       }}
-                      value={JSON.stringify({ statusCode: 200, message: 'Hello API' }, null, '\t')}
+                      value={content}
+                      onChange={(val: string) => setContent(val)}
                       setOptions={{
                         enableBasicAutocompletion: true,
                         enableLiveAutocompletion: true,
@@ -102,11 +82,9 @@ const Index: React.FC = () => {
                   </div>
                   <Spacer y={1} />
                   <Row>
-                    <Link to="/signin">
-                      <Button auto css={{ marginRight: '$4' }}>
-                        Create JSON
-                      </Button>
-                    </Link>
+                    <Button auto css={{ marginRight: '$4' }} onClick={createApiHandler}>
+                      Create JSON
+                    </Button>
                     <Button auto flat>
                       Get Started
                     </Button>
@@ -220,9 +198,9 @@ const Index: React.FC = () => {
         </section>
 
       </Container>
+
       <Footer />
     </>
-
   );
 };
 

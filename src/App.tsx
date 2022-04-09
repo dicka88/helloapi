@@ -41,6 +41,7 @@ const App: React.FC = () => {
             <Route index element={<Index />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/document/:id" element={<DocumentDetail isPublic />} />
             <Route
               path="/documents"
               element={(

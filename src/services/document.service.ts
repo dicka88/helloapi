@@ -51,6 +51,11 @@ export const updateDocument = async ({ id, body }: DocumentUpdateType): Promise<
   return data;
 };
 
+export const updatePublicDocument = async ({ id, body }: DocumentUpdateType): Promise<any> => {
+  const { data } = await axios.put(`/documents/public/${id}`, body);
+  return data;
+};
+
 export const deleteDocument = async (id: string): Promise<{
   code: number,
   message: string

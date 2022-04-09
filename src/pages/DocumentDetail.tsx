@@ -16,9 +16,13 @@ import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/worker-json';
 
 import toast from 'react-hot-toast';
-import { createDocument, getDocument, updateDocument } from '../services/document.service';
+import {
+  createDocument,
+  createPublicDocument, getDocument, getPublicDocument, updateDocument, updatePublicDocument,
+} from '../services/document.service';
 import Navbar from '../components/Navbar/Navbar';
 import Seo from '../components/Seo/Seo';
+import NavbarHomepage from '../components/NavbarHomepage/NavbarHomepage';
 
 const PlainInput = styled.input`
   border: none;
@@ -28,10 +32,15 @@ const PlainInput = styled.input`
   max-width: 300px;
 `;
 
-const DocumentDetail: React.FC = () => {
+type Props = {
+  isPublic?: boolean;
+}
+
+const DocumentDetail: React.FC<Props> = ({ isPublic = null }) => {
   const { id } = useParams<{id: string}>();
   const navigate = useNavigate();
   const { isLoading, data: document } = useQuery(['documents', id], () => {
+    if (isPublic) return getPublicDocument(id!);
     if (id !== 'new') return getDocument(id!);
 
     return null;
@@ -58,14 +67,25 @@ const DocumentDetail: React.FC = () => {
 
     try {
       if (id === 'new') {
-        const data = await createDocument(form);
-
-        navigate(`/documents/${data._id}`);
+        if (isPublic) {
+          const data = await createPublicDocument(form);
+          navigate(`/document/${data._id}`);
+        } else {
+          const data = await createDocument(form);
+          navigate(`/documents/${data._id}`);
+        }
       } else if (id !== undefined) {
-        await updateDocument({
-          id,
-          body: form,
-        });
+        if (isPublic) {
+          await updatePublicDocument({
+            id,
+            body: form,
+          });
+        } else {
+          await updateDocument({
+            id,
+            body: form,
+          });
+        }
 
         toast.success('Document is saved');
       }
@@ -88,7 +108,13 @@ const DocumentDetail: React.FC = () => {
   return (
     <Container md>
       <Seo title="Document - Hello API" />
-      <Navbar />
+
+      {isPublic && (
+        <NavbarHomepage />
+      )}
+      {!isPublic && (
+        <Navbar />
+      )}
 
       <Spacer y={2} />
 
@@ -101,11 +127,13 @@ const DocumentDetail: React.FC = () => {
         <Row justify="space-between">
           <div>
             <Row align="center">
-              <div>
-                <Link to="/documents">
-                  <BsArrowLeft size={18} style={{ display: 'inline', marginRight: '1em' }} />
-                </Link>
-              </div>
+              {!isPublic && (
+                <div>
+                  <Link to="/documents">
+                    <BsArrowLeft size={18} style={{ display: 'inline', marginRight: '1em' }} />
+                  </Link>
+                </div>
+              )}
               <div>
                 <PlainInput
                   value={form.title}
