@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
       </Card>
       )}
       <Row justify="space-between" align="center">
-        <Link to="/projects">
+        <Link to="/documents">
           <Image
             src="/logo/logohorizontal.svg"
             height={36}

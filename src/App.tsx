@@ -17,6 +17,8 @@ import Settings from './pages/Settings';
 import Invoices from './pages/Invoices';
 import EndpointDetail from './components/EndpointDetail/EndpointDetail';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import Documents from './pages/Documents';
+import DocumentDetail from './pages/DocumentDetail';
 
 export const queryClient = new QueryClient();
 
@@ -39,6 +41,22 @@ const App: React.FC = () => {
             <Route index element={<Index />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/documents"
+              element={(
+                <ProtectedRoute>
+                  <Documents />
+                </ProtectedRoute>
+            )}
+            />
+            <Route
+              path="/documents/:id"
+              element={(
+                <ProtectedRoute>
+                  <DocumentDetail />
+                </ProtectedRoute>
+            )}
+            />
             <Route
               path="/projects"
               element={(
