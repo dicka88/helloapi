@@ -59,7 +59,6 @@ const Signin: React.FC = () => {
 
         // parse token
         const userDecode = jwtDecode(token);
-        console.log(userDecode);
 
         setUser(userDecode);
 
