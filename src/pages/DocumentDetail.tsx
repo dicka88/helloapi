@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
-  Button, Container, Row, Spacer, Text,
+  Button, Container, Row, Spacer, Text, Tooltip,
 } from '@nextui-org/react';
 import {
   BsArrowLeft, BsBoxArrowInUpRight, BsPencil, BsThreeDots,
@@ -23,6 +23,8 @@ import {
 import Navbar from '../components/Navbar/Navbar';
 import Seo from '../components/Seo/Seo';
 import NavbarHomepage from '../components/NavbarHomepage/NavbarHomepage';
+import Footer from '../components/Footer/Footer';
+import DropdownDocument from '../components/DropdownDocument/DropdownDocument';
 
 const PlainInput = styled.input`
   border: none;
@@ -106,7 +108,7 @@ const DocumentDetail: React.FC<Props> = ({ isPublic = null }) => {
   }, [document]);
 
   return (
-    <Container md>
+    <Container lg>
       <Seo title="Document - Hello API" />
 
       {isPublic && (
@@ -155,9 +157,13 @@ const DocumentDetail: React.FC<Props> = ({ isPublic = null }) => {
                   Open
                 </Button>
               </a>
-              <Button light auto>
-                <BsThreeDots />
-              </Button>
+              {!isPublic && (
+                <Tooltip trigger="click" placement="bottomEnd" content={<DropdownDocument documentId={id!} />}>
+                  <Button light auto>
+                    <BsThreeDots />
+                  </Button>
+                </Tooltip>
+              )}
             </Row>
           </div>
         </Row>
@@ -205,6 +211,8 @@ const DocumentDetail: React.FC<Props> = ({ isPublic = null }) => {
             }}
           />
         </div>
+        <Spacer y={4} />
+        <Footer />
       </>
       )}
 
