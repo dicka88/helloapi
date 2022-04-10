@@ -58,7 +58,7 @@ const Signup: React.FC = () => {
         navigate('/documents');
       }
     } catch (err: any) {
-      toast.error(err?.response?.data?.error);
+      toast.error(err?.response?.data?.message || 'Something went wrong');
     }
   };
 
