@@ -10,7 +10,7 @@ const ProtectedRoute: React.FC<Props> = ({ children }: Props) => {
   const { user } = useUser();
   const { pathname } = useLocation();
 
-  if (!user?.email) {
+  if (!user?.id) {
     return (
       <Navigate
         to="/signin"
