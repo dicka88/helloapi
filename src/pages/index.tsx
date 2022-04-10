@@ -94,7 +94,7 @@ const Index: React.FC = () => {
             </Grid>
             <Grid xs={12} sm={6} md={6}>
               <Row justify="center" align="center">
-                <img src="/illustrations/sammy-no-connection.gif" alt="HelloAPI" />
+                <Image src="/illustrations/sammy-no-connection.gif" alt="HelloAPI" />
               </Row>
             </Grid>
           </Grid.Container>
