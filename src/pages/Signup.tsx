@@ -9,10 +9,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import jwtDecode from 'jwt-decode';
+import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 
 import Seo from '../components/Seo/Seo';
-import { signup, SignupType } from '../services/auth.service';
+import { googleSignup, signup, SignupType } from '../services/auth.service';
 import useUser from '../zustand/useUser';
+import { GOOGLE_CLIENT_ID } from '../config/env';
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();
@@ -33,12 +35,35 @@ const Signup: React.FC = () => {
 
       setUser(userDecode);
 
-      navigate('/');
+      navigate('/documents');
     } catch (err: any) {
       toast.error(err.response.data.message);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const onGoogleSuccess = async (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+    try {
+      if ('tokenId' in response) {
+        const { token } = await googleSignup(response.tokenId);
+
+        localStorage.setItem('token', token);
+
+        // parse token
+        const userDecode = jwtDecode(token);
+
+        setUser(userDecode);
+
+        navigate('/documents');
+      }
+    } catch (err: any) {
+      toast.error(err?.response?.data?.error);
+    }
+  };
+
+  const onGoogleFailure = (response: any) => {
+    console.log(response);
   };
 
   return (
@@ -116,14 +141,22 @@ const Signup: React.FC = () => {
           <Divider css={{ my: '$8' }} />
           <Text css={{ textAlign: 'center' }}>Or Sign Up With</Text>
           <Spacer y={1} />
-          <Button
-            ghost
-            borderWeight="light"
-            disabled
-          >
-            <FcGoogle size="1.3rem" style={{ marginRight: '0.5em' }} />
-            Sign Up with Google
-          </Button>
+          <GoogleLogin
+            clientId={GOOGLE_CLIENT_ID!}
+            onSuccess={onGoogleSuccess}
+            onFailure={onGoogleFailure}
+            render={({ onClick, disabled }) => (
+              <Button
+                ghost
+                borderWeight="light"
+                disabled={disabled}
+                onClick={onClick}
+              >
+                <FcGoogle size="1.3rem" style={{ marginRight: '0.5em' }} />
+                Sign Up with Google
+              </Button>
+            )}
+          />
           <Spacer y={0.3} />
           <Button ghost borderWeight="light" disabled>
             <BsGithub size="1.3rem" style={{ marginRight: '0.5em' }} />

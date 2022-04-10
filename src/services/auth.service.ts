@@ -30,3 +30,13 @@ export const signup = async (credential: SignupType): Promise<AuthResponse> => {
 
   return data;
 };
+
+export const googleSignin = async (tokenId: string): Promise<AuthResponse> => {
+  const { data } = await axios.post<AuthResponse>(`${API_HOST}/auth/google/signin`, { tokenId });
+  return data;
+};
+
+export const googleSignup = async (tokenId: string): Promise<AuthResponse> => {
+  const { data } = await axios.post<AuthResponse>(`${API_HOST}/auth/google/signup`, { tokenId });
+  return data;
+};
