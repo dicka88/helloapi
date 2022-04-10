@@ -63,9 +63,7 @@ const Documents: React.FC = () => {
                 height="320px"
                 css={{ pb: '$14' }}
               />
-              <Text h4>
-                No have any document
-              </Text>
+              <Text h3>No have any document</Text>
               <Spacer y={1} />
               <Link to="/documents/new">
                 <Button auto css={{ mx: 'auto' }}>
@@ -79,15 +77,17 @@ const Documents: React.FC = () => {
 
         {data?.map(({ title, _id }) => (
           <Grid key={_id} xs={12}>
-            <Row justify="space-between" css={{ mb: '$1' }}>
-              <div>
-                <Link to={`/documents/${_id}`}>
-                  {title}
-                </Link>
-              </div>
-              <Button auto flat>
-                <BsArrowRight />
-              </Button>
+            <Row justify="space-between" css={{ mb: '$1', '&:hover': { color: '$blue700' } }}>
+              <Link to={`/documents/${_id}`} style={{ width: '100%' }}>
+                <Row justify="space-between" align="center">
+                  <span>
+                    {title}
+                  </span>
+                  <Button auto flat>
+                    <BsArrowRight />
+                  </Button>
+                </Row>
+              </Link>
             </Row>
           </Grid>
         ))}

@@ -43,10 +43,10 @@ const Project: React.FC = () => {
       </Row>
       <Grid.Container gap={1} css={{ my: '$4' }}>
         {data?.data.length === 0 && (
-        <Grid justify="center" css={{ py: '$32' }}>
-          <div>
-            <Text h2>No projects found</Text>
-            <Text>Create your first Project now</Text>
+        <Grid xs={12} justify="center" alignItems="center" css={{ py: '$32' }}>
+          <div style={{ textAlign: 'center' }}>
+            <Text h3>No projects found</Text>
+            <Text>Create your first project now</Text>
             <Spacer y={1} />
             <Button auto onClick={() => setCreateModalOpen(true)}>
               <AiOutlinePlus style={{ marginRight: '0.5rem' }} />
