@@ -1,6 +1,21 @@
-# Getting Started with Create React App
+# Hello API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<center>
+<img src="https://i.ibb.co/Jv6r6D1/logo128.png">
+</center>
+
+JSON API Generator
+
+## Tech stack
+
+- Create React App
+- NEXT UI (UI Library)
+- Zustand (State management)
+- React query (Server cache on client)
+- Axios (HTTP client)
+- React Ace (Code editor)
+
+[https://helloapi.vercel.app](https://helloapi.vercel.app)
 
 ## Available Scripts
 
