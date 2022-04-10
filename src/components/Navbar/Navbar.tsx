@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  Button, Card, Image, Row, Text, Tooltip,
+  Avatar,
+  Button, Image, Row, Tooltip,
 } from '@nextui-org/react';
-import { AiFillMail } from 'react-icons/ai';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -10,9 +10,11 @@ import { FcFlashOn } from 'react-icons/fc';
 import ProfileDropdown from './ProfileDropdown';
 import useUser from '../../zustand/useUser';
 import AvatarShortName from '../AvatarShortName/AvatarShortName';
+// import EmailVerificationAlert from '../EmailVerificationAlert/EmailVerificationAlert';
 
 const Nav = styled.nav`
   padding: 1em 0;
+  border-bottom: 1px solid #e8e8e8;
 `;
 
 const Navbar: React.FC = () => {
@@ -20,19 +22,9 @@ const Navbar: React.FC = () => {
 
   return (
     <Nav>
-      {!user?.emailVerifiedAt && (
-      <Card color="warning" css={{ mt: '$6', mb: '$8' }}>
-        <Row justify="space-between" align="center">
-          <Text h6 size={15} color="white" css={{ m: 0 }}>
-            <AiFillMail size={15} style={{ marginRight: '1em' }} />
-            Your email is not verified
-          </Text>
-          <Button auto light css={{ color: 'white' }}>
-            Verify now
-          </Button>
-        </Row>
-      </Card>
-      )}
+      {/* {!user?.emailVerifiedAt && (
+        <EmailVerificationAlert />
+      )} */}
       <Row justify="space-between" align="center">
         <Link to="/documents">
           <Image
@@ -46,7 +38,14 @@ const Navbar: React.FC = () => {
               Usage
             </Button>
             <Tooltip trigger="click" placement="bottomEnd" content={<ProfileDropdown />}>
-              <AvatarShortName name={user?.name!} color="#000000" />
+              {user?.avatarUrl
+                ? (
+                  <Avatar
+                    src={user?.avatarUrl}
+                    css={{ cursor: 'pointer' }}
+                  />
+                )
+                : <AvatarShortName name={user?.name!} color="#000000" />}
             </Tooltip>
           </Row>
         </div>
