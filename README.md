@@ -1,4 +1,4 @@
-<a href="https://github.com/BMO-technocorner/monoxide-dashboard/blob/master/LICENSE">
+<a href="https://github.com/dicka88/dicka88/blob/main/LICENSE">
   <img src="https://img.shields.io/github/license/dicka88/helloapi" alt="License" target="_blank" rel="noopener noreferrer">
 </a>
 
