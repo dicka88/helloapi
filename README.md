@@ -1,12 +1,18 @@
 <a href="https://github.com/dicka88/dicka88/blob/main/LICENSE">
   <img src="https://img.shields.io/github/license/dicka88/helloapi" alt="License" target="_blank" rel="noopener noreferrer">
 </a>
-
-# Hello API
-
+<a href="https://github.com/dicka88/dicka88/blob/main/LICENSE">
+  <img src="https://img.shields.io/librariesio/github/dicka88/helloapi" />
+</a>
+<a href="https://github.com/dicka88/dicka88/blob/main/LICENSE">
+  <img src="https://img.shields.io/github/repo-size/dicka88/helloapi" />
+</a>
+  
 <center>
 <img src="https://i.ibb.co/Jv6r6D1/logo128.png">
 </center>
+
+## Hello API
 
 JSON API Generator
 
