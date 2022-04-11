@@ -1,5 +1,5 @@
 <a href="https://github.com/BMO-technocorner/monoxide-dashboard/blob/master/LICENSE">
-  <img src="https://img.shields.io/github/license/dicka88r/helloapi" alt="License" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.shields.io/github/license/dicka88/helloapi" alt="License" target="_blank" rel="noopener noreferrer">
 </a>
 
 # Hello API
